@@ -1,0 +1,57 @@
+---
+import SocialLink from '../ui/SocialLink.astro';
+import { Github, Linkedin, Mail, Twitter } from '../ui/icons';
+---
+
+<footer class="py-12 border-t bg-muted/30">
+  <div class="container">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <div data-aos="fade-up">
+        <h3 class="text-xl font-bold mb-4">Portfolio</h3>
+        <p class="text-muted-foreground">A showcase of my skills, projects, and professional journey.</p>
+      </div>
+
+      <div data-aos="fade-up" data-aos-delay="100" class="space-y-4">
+        <h3 class="text-xl font-bold mb-4">Quick Links</h3>
+        <ul class="space-y-2">
+          {["Home", "About", "Skills", "Projects", "Contact"].map((item) => (
+            <li>
+              <a
+                href={`#${item.toLowerCase()}`}
+                class="text-muted-foreground hover:text-primary transition-colors"
+              >
+                {item}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <div data-aos="fade-up" data-aos-delay="200">
+        <h3 class="text-xl font-bold mb-4">Connect</h3>
+        <div class="flex flex-wrap gap-3">
+          <SocialLink href="https://github.com/duvanmesal?tab=repositories">
+            <Github className="h-5 w-5" />
+          </SocialLink>
+          <SocialLink href="https://www.linkedin.com/in/duvan-mesa-a6372a200/">
+            <Linkedin className="h-5 w-5" />
+          </SocialLink>
+        </div>
+      </div>
+    </div>
+
+    <div data-aos="fade-up" data-aos-delay="300" class="mt-12 pt-6 border-t text-center text-sm text-muted-foreground">
+      <p>© <span id="footer-year"></span> John Doe. All rights reserved.</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const footerYear = document.getElementById('footer-year');
+    if (footerYear) {
+      footerYear.textContent = new Date().getFullYear().toString();
+    }
+  });
+</script>
+

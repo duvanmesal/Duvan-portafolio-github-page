@@ -1,0 +1,63 @@
+---
+interface Props {
+  title: string;
+  subtitle: string;
+  light?: boolean;
+}
+
+const { title, subtitle, light = false } = Astro.props;
+---
+
+<div class="text-center max-w-2xl mx-auto" data-aos="fade-up">
+  <h2 class={`text-3xl md:text-4xl font-bold ${light ? 'text-white' : ''}`}>{title}</h2>
+  <div class="relative h-1 w-20 bg-gradient-to-r from-primary to-purple-500 mx-auto my-4 rounded-full overflow-hidden">
+    <div class="absolute inset-0 bg-white/30 animate-shimmer"></div>
+  </div>
+  <p class={`${light ? 'text-white/80' : 'text-muted-foreground'}`}>{subtitle}</p>
+</div>
+
+<style>
+  @keyframes shimmer {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+  }
+  
+  .animate-shimmer {
+    animation: shimmer 2s infinite linear;
+  }
+  
+  [data-aos="fade-up"] {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+  }
+  
+  [data-aos="fade-up"].aos-animate {
+    opacity: 1;
+    transform: translateY(0);
+  }
+</style>
+
+<script>
+  // Simple AOS (Animate On Scroll) implementation
+  document.addEventListener('DOMContentLoaded', () => {
+    const observerOptions = {
+      root: null,
+      rootMargin: '0px',
+      threshold: 0.1
+    };
+    
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('aos-animate');
+        }
+      });
+    }, observerOptions);
+    
+    document.querySelectorAll('[data-aos]').forEach(element => {
+      observer.observe(element);
+    });
+  });
+</script>
+

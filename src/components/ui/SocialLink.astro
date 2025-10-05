@@ -1,0 +1,17 @@
+---
+interface Props {
+  href: string;
+  label?: string;
+}
+---
+
+<a
+  href={Astro.props.href}
+  target="_blank"
+  rel="noopener noreferrer"
+  class="p-2 rounded-full bg-muted hover:bg-primary/10 hover:text-primary transition-colors flex items-center gap-2 hover:scale-110 active:scale-95"
+>
+  <slot />
+  {Astro.props.label && <span class="text-sm">{Astro.props.label}</span>}
+</a>
+

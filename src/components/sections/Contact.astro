@@ -1,0 +1,212 @@
+---
+import { Github, Linkedin, Mail, MapPin, Phone } from '../ui/icons';
+import Button from '../ui/Button.astro';
+import SectionHeader from '../ui/SectionHeader.astro';
+---
+
+<section id="contact" class="py-24 relative">
+  <!-- Background elements -->
+  <div class="absolute inset-0 -z-10 overflow-hidden">
+    <div class="absolute top-1/4 right-1/4 w-64 h-64 bg-primary/5 rounded-full blur-3xl"></div>
+    <div class="absolute bottom-1/4 left-1/4 w-80 h-80 bg-purple-500/5 rounded-full blur-3xl"></div>
+  </div>
+
+  <div class="container">
+    <SectionHeader title="Contact Me" subtitle="Get in touch" />
+    
+    <div class="mt-16 grid md:grid-cols-2 gap-12">
+      <div data-aos="fade-right">
+        <h3 class="text-2xl font-bold mb-6">Let's Talk</h3>
+        <p class="text-muted-foreground mb-8">
+          Feel free to reach out if you're looking for a developer, have a question, or just want to connect.
+        </p>
+        
+        <div class="space-y-6">
+          <div class="flex items-start">
+            <div class="mr-4 mt-1">
+              <Mail className="h-5 w-5 text-primary" />
+            </div>
+            <div>
+              <h4 class="font-medium">Email</h4>
+              <a
+                href="mailto:duvanmesa2415@gmail.com"
+                class="text-muted-foreground hover:text-primary transition-colors"
+              >
+                duvanmesa2415@gmail.com
+              </a>
+            </div>
+          </div>
+          
+          <div class="flex items-start">
+            <div class="mr-4 mt-1">
+              <Phone className="h-5 w-5 text-primary" />
+            </div>
+            <div>
+              <h4 class="font-medium">Phone</h4>
+              <a
+                href="tel:+573152375372"
+                class="text-muted-foreground hover:text-primary transition-colors"
+              >
+                +57 315 2375372
+              </a>
+            </div>
+          </div>
+          
+          <div class="flex items-start">
+            <div class="mr-4 mt-1">
+              <MapPin className="h-5 w-5 text-primary" />
+            </div>
+            <div>
+              <h4 class="font-medium">Location</h4>
+              <p class="text-muted-foreground">Cartagena, Colombia</p>
+            </div>
+          </div>
+          
+          <div class="flex items-start">
+            <div class="mr-4 mt-1">
+              <Linkedin className="h-5 w-5 text-primary" />
+            </div>
+            <div>
+              <h4 class="font-medium">LinkedIn</h4>
+              <a
+                href="https://www.linkedin.com/in/duvan-mesa-a6372a200/"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="text-muted-foreground hover:text-primary transition-colors"
+              >
+                linkedin.com/in/duvan-mesa
+              </a>
+            </div>
+          </div>
+          
+          <div class="flex items-start">
+            <div class="mr-4 mt-1">
+              <Github className="h-5 w-5 text-primary" />
+            </div>
+            <div>
+              <h4 class="font-medium">GitHub</h4>
+              <a
+                href="https://github.com/duvanmesal?tab=repositories"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="text-muted-foreground hover:text-primary transition-colors"
+              >
+                github.com/duvanmesal
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div data-aos="fade-left">
+        <div class="bg-card border rounded-xl p-6 shadow-sm">
+          <h3 class="text-xl font-bold mb-6">Send Me a Message</h3>
+          <form id="contact-form" class="space-y-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div class="space-y-2">
+                <label for="name" class="text-sm font-medium">
+                  Name
+                </label>
+                <input
+                  id="name"
+                  type="text"
+                  required
+                  class="w-full px-3 py-2 border rounded-md bg-background focus:outline-none focus:ring-2 focus:ring-primary/50"
+                />
+              </div>
+              <div class="space-y-2">
+                <label for="email" class="text-sm font-medium">
+                  Email
+                </label>
+                <input
+                  id="email"
+                  type="email"
+                  required
+                  class="w-full px-3 py-2 border rounded-md bg-background focus:outline-none focus:ring-2 focus:ring-primary/50"
+                />
+              </div>
+            </div>
+            <div class="space-y-2">
+              <label for="subject" class="text-sm font-medium">
+                Subject
+              </label>
+              <input
+                id="subject"
+                type="text"
+                required
+                class="w-full px-3 py-2 border rounded-md bg-background focus:outline-none focus:ring-2 focus:ring-primary/50"
+              />
+            </div>
+            <div class="space-y-2">
+              <label for="message" class="text-sm font-medium">
+                Message
+              </label>
+              <textarea
+                id="message"
+                rows="5"
+                required
+                class="w-full px-3 py-2 border rounded-md resize-none bg-background focus:outline-none focus:ring-2 focus:ring-primary/50"
+              ></textarea>
+            </div>
+            <Button type="submit" class="w-full" id="submit-button">
+              Send Message
+            </Button>
+          </form>
+          
+          <!-- Success message (hidden by default) -->
+          <div id="success-message" class="hidden bg-primary/10 p-8 rounded-xl text-center h-full flex flex-col items-center justify-center">
+            <div class="w-16 h-16 bg-primary/20 rounded-full flex items-center justify-center mb-4">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-8 w-8 text-primary"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+              </svg>
+            </div>
+            <h3 class="text-xl font-bold mb-2">Message Sent!</h3>
+            <p class="text-muted-foreground mb-6">Thank you for reaching out. I'll get back to you soon.</p>
+            <Button id="send-another-button">Send Another Message</Button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const contactForm = document.getElementById('contact-form') as HTMLFormElement;
+    const successMessage = document.getElementById('success-message') as HTMLElement;
+    const submitButton = document.getElementById('submit-button') as HTMLButtonElement;
+    const sendAnotherButton = document.getElementById('send-another-button') as HTMLButtonElement;
+
+    if (contactForm && successMessage && submitButton && sendAnotherButton) {
+      contactForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        
+        submitButton.innerHTML = `
+          <svg class="animate-spin -ml-1 mr-2 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+          </svg>
+          Sending...
+        `;
+        
+        setTimeout(() => {
+          contactForm.classList.add('hidden');
+          successMessage.classList.remove('hidden');
+        }, 1500);
+      });
+      
+      sendAnotherButton.addEventListener('click', () => {
+        contactForm.reset();
+        successMessage.classList.add('hidden');
+        contactForm.classList.remove('hidden');
+        submitButton.textContent = 'Send Message';
+      });
+    }
+  });
+</script>

@@ -1,0 +1,17 @@
+---
+// src/components/Projects.astro
+import SectionHeader from '../ui/SectionHeader.astro';
+import ProjectCard from '../ui/ProjectCard.astro'; // asumí que lo creaste en components/ui/ProjectCard.astro
+import { projectsData } from '../../data/projects-data';
+---
+<section id="projects" class="py-24 bg-gradient-to-b from-background to-muted/30">
+  <div class="container">
+    <SectionHeader title="My Projects" subtitle="Some of my recent work" />
+
+    <div class="mt-16 grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+      {projectsData.map((project, index) => (
+        <ProjectCard project={project} index={index} />
+      ))}
+    </div>
+  </div>
+</section>

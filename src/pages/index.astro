@@ -1,11 +1,81 @@
 ---
-import Welcome from '../components/Welcome.astro';
 import Layout from '../layouts/Layout.astro';
-
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+import Header from '../components/layout/Header.astro';
+import Footer from '../components/layout/Footer.astro';
+import Hero from '../components/sections/Hero.astro';
+import About from '../components/sections/About.astro';
+import Skills from '../components/sections/Skills.astro';
+import Projects from '../components/sections/Projects.astro';
+import Contact from '../components/sections/Contact.astro';
+import ThemeToggle from '../components/ThemeToggle.astro';
+import ProgressBar from '../components/ui/ProgressBar.astro';
 ---
 
-<Layout>
-	<Welcome />
+<Layout title="Professional Portfolio">
+  <div class="relative">
+    <ProgressBar />
+    <div class="fixed top-6 right-6 z-50">
+      <ThemeToggle />
+    </div>
+    <Header />
+    <main class="pt-16">
+      <Hero />
+      <About />
+      <Skills />
+      <Projects />
+      <Contact />
+    </main>
+    <Footer />
+  </div>
 </Layout>
+
+<script>
+  // Handle active section based on scroll position
+  document.addEventListener('DOMContentLoaded', () => {
+    const sections = ["home", "about", "skills", "projects", "contact"];
+    const navLinks = document.querySelectorAll('[data-nav-link]');
+    
+    const handleScroll = () => {
+      const scrollPosition = window.scrollY + 300;
+      
+      for (const section of sections) {
+        const element = document.getElementById(section);
+        if (!element) continue;
+        
+        const offsetTop = element.offsetTop;
+        const height = element.offsetHeight;
+        
+        if (scrollPosition >= offsetTop && scrollPosition < offsetTop + height) {
+          // Update active class
+          navLinks.forEach(link => {
+            if (link.getAttribute('href') === `#${section}`) {
+              link.classList.add('text-primary');
+              link.classList.add('active-nav-link');
+            } else {
+              link.classList.remove('text-primary');
+              link.classList.remove('active-nav-link');
+            }
+          });
+          break;
+        }
+      }
+    };
+    
+    window.addEventListener("scroll", handleScroll);
+    // Initial check
+    handleScroll();
+  });
+</script>
+
+<style>
+  .active-nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(to right, var(--color-primary), #a855f7);
+  }
+</style>
+

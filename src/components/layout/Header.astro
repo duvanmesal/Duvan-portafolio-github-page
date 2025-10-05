@@ -1,0 +1,120 @@
+---
+import { ArrowRight } from '../ui/icons';
+---
+
+<header id="header" class="fixed top-0 left-0 right-0 z-40 transition-all duration-300 py-4 bg-transparent">
+  <div class="container flex items-center justify-between">
+    <a href="#home" class="text-xl font-bold relative group">
+      <span class="bg-clip-text text-transparent bg-gradient-to-r from-primary to-purple-600">Portfolio</span>
+      <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-primary to-purple-600 transition-all duration-300 group-hover:w-full"></span>
+    </a>
+    
+    <nav class="hidden md:flex items-center space-x-8">
+      <a href="#home" data-nav-link class="relative px-1 py-2 transition-colors hover:text-primary">Home</a>
+      <a href="#about" data-nav-link class="relative px-1 py-2 transition-colors hover:text-primary">About</a>
+      <a href="#skills" data-nav-link class="relative px-1 py-2 transition-colors hover:text-primary">Skills</a>
+      <a href="#projects" data-nav-link class="relative px-1 py-2 transition-colors hover:text-primary">Projects</a>
+      <a href="#contact" data-nav-link class="relative px-1 py-2 transition-colors hover:text-primary">Contact</a>
+    </nav>
+    
+    <div class="md:hidden">
+      <button id="mobile-menu-toggle" class="relative z-50 p-2">
+        <div class="w-6 flex flex-col gap-1.5 items-center justify-center">
+          <span class="w-6 h-0.5 bg-foreground block transition-all duration-300"></span>
+          <span class="w-6 h-0.5 bg-foreground block transition-all duration-300"></span>
+          <span class="w-6 h-0.5 bg-foreground block transition-all duration-300"></span>
+        </div>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- Mobile Menu -->
+<div id="mobile-menu" class="fixed inset-0 bg-background/80 backdrop-blur-sm z-40 hidden">
+  <div class="fixed right-0 top-0 h-full w-3/4 max-w-xs bg-background p-6 shadow-lg border-l">
+    <div class="flex flex-col h-full">
+      <div class="mt-16 flex flex-col space-y-6">
+        <a href="#home" data-mobile-nav-link class="text-lg px-2 py-2">Home</a>
+        <a href="#about" data-mobile-nav-link class="text-lg px-2 py-2">About</a>
+        <a href="#skills" data-mobile-nav-link class="text-lg px-2 py-2">Skills</a>
+        <a href="#projects" data-mobile-nav-link class="text-lg px-2 py-2">Projects</a>
+        <a href="#contact" data-mobile-nav-link class="text-lg px-2 py-2">Contact</a>
+      </div>
+      <div class="mt-auto mb-8 text-sm text-muted-foreground">
+        <p>© <span id="current-year"></span> Portfolio</p>
+        <p class="mt-1">Designed with ❤️</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const header = document.getElementById('header');
+    const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const mobileNavLinks = document.querySelectorAll('[data-mobile-nav-link]');
+    const currentYearElement = document.getElementById('current-year');
+    
+    // Set current year
+    if (currentYearElement) {
+      currentYearElement.textContent = new Date().getFullYear().toString();
+    }
+    
+    // Handle header background on scroll
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) {
+        header?.classList.add('bg-background/80', 'backdrop-blur-md', 'shadow-md', 'py-2');
+        header?.classList.remove('py-4', 'bg-transparent');
+      } else {
+        header?.classList.remove('bg-background/80', 'backdrop-blur-md', 'shadow-md', 'py-2');
+        header?.classList.add('py-4', 'bg-transparent');
+      }
+    });
+    
+    // Mobile menu toggle
+    mobileMenuToggle?.addEventListener('click', () => {
+      const isOpen = mobileMenu?.classList.contains('flex');
+      
+      if (isOpen) {
+        mobileMenu?.classList.remove('flex');
+        mobileMenu?.classList.add('hidden');
+        document.body.classList.remove('overflow-hidden');
+        
+        // Reset hamburger icon
+        const spans = mobileMenuToggle.querySelectorAll('span');
+        spans[0].style.transform = '';
+        spans[1].style.opacity = '1';
+        spans[2].style.transform = '';
+      } else {
+        mobileMenu?.classList.remove('hidden');
+        mobileMenu?.classList.add('flex');
+        document.body.classList.add('overflow-hidden');
+        
+        // Animate to X
+        const spans = mobileMenuToggle.querySelectorAll('span');
+        spans[0].style.transform = 'rotate(45deg) translate(5px, 5px)';
+        spans[1].style.opacity = '0';
+        spans[2].style.transform = 'rotate(-45deg) translate(5px, -5px)';
+      }
+    });
+    
+    // Close mobile menu when clicking a link
+    mobileNavLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        mobileMenu?.classList.remove('flex');
+        mobileMenu?.classList.add('hidden');
+        document.body.classList.remove('overflow-hidden');
+        
+        // Reset hamburger icon
+        const spans = mobileMenuToggle?.querySelectorAll('span');
+        if (spans) {
+          spans[0].style.transform = '';
+          spans[1].style.opacity = '1';
+          spans[2].style.transform = '';
+        }
+      });
+    });
+  });
+</script>
+

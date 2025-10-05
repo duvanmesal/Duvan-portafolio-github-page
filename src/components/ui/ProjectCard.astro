@@ -1,0 +1,133 @@
+---
+// src/components/ui/ProjectCard.astro
+import type { Project } from '../../types/project';
+interface Props {
+  project: Project;
+  index?: number;
+}
+const { project, index = 0 } = Astro.props as Props;
+const firstImage = project.images && project.images.length ? project.images[0] : '/placeholder.svg';
+---
+<article
+  class="project-card group h-full"
+  data-aos="fade-up"
+  data-aos-delay={index * 100}
+  tabindex="0"
+  aria-label={project.title}
+>
+  <div class="h-full flex flex-col overflow-hidden rounded-xl border bg-card text-card-foreground shadow-sm transition-all duration-300 hover:shadow-lg group-hover:-translate-y-1">
+    <div class="relative overflow-hidden">
+      <img
+        src={firstImage}
+        alt={project.title}
+        data-images={JSON.stringify(project.images)}
+        class="w-full aspect-video object-cover will-change-opacity"
+        loading="lazy"
+        style="transition: opacity 800ms ease-in-out; opacity: 1;"
+      />
+    </div>
+
+    <div class="flex-grow flex flex-col p-5">
+      <h3 class="font-bold text-lg mb-1">{project.title}</h3>
+      <p class="text-xs text-primary font-medium mb-3">{project.category}</p>
+      <p class="text-muted-foreground text-sm mb-4 flex-grow">{project.description}</p>
+
+      <div class="flex flex-wrap gap-2 mb-4">
+        {project.technologies.map((tech: string) => (
+          <span class="px-2 py-1 bg-primary/10 text-primary rounded-md text-xs font-medium" role="listitem">
+            {tech}
+          </span>
+        ))}
+      </div>
+
+      <div class="flex gap-3 mt-auto">
+        <a
+          class="inline-flex items-center justify-center w-full border rounded-md px-3 py-2 text-sm hover:shadow-sm transition"
+          href={project.github ?? '#'}
+          target={project.github ? '_blank' : undefined}
+          rel={project.github ? 'noopener noreferrer' : undefined}
+        >
+          Code
+        </a>
+      </div>
+    </div>
+  </div>
+</article>
+
+<script is:inline>
+  (function () {
+    const TRANSITION_MS = 800; 
+    const INTERVAL = 3800; 
+
+    function normalizeImages(imgElement) {
+      let raw = imgElement.dataset.images ?? '[]';
+      let imgs = [];
+      try {
+        imgs = JSON.parse(raw);
+      } catch {
+        raw = String(raw || '');
+        if (raw.includes(',')) imgs = raw.split(',').map(s => s.trim()).filter(Boolean);
+        else imgs = [imgElement.src];
+      }
+      imgs = imgs.map(s => String(s).trim()).filter(Boolean);
+      imgs = Array.from(new Set(imgs));
+      if (!imgs.length) imgs = [imgElement.src];
+      return imgs;
+    }
+
+    function initCarousel(card) {
+      const img = card.querySelector('img[data-images]');
+      if (!img) return;
+      const images = normalizeImages(img);
+      if (images.length <= 1) return;
+
+      let idx = 0;
+      let timer = null;
+      let isFading = false;
+
+      function showNext() {
+        if (isFading) return;
+        idx = (idx + 1) % images.length;
+        const nextSrc = images[idx];
+        isFading = true;
+
+        img.style.opacity = '0';
+        setTimeout(() => {
+          img.src = nextSrc;
+          img.onload = () => {
+            img.style.opacity = '1';
+            setTimeout(() => (isFading = false), TRANSITION_MS);
+          };
+        }, TRANSITION_MS);
+      }
+
+      function start() {
+        if (!timer) timer = setInterval(showNext, INTERVAL);
+      }
+
+      function stop() {
+        if (timer) {
+          clearInterval(timer);
+          timer = null;
+        }
+        // volver siempre a la primera imagen
+        idx = 0;
+        img.style.opacity = '0';
+        setTimeout(() => {
+          img.src = images[0];
+          img.onload = () => {
+            img.style.opacity = '1';
+          };
+        }, TRANSITION_MS);
+      }
+
+      // activa solo en hover o focus
+      card.addEventListener('mouseenter', start);
+      card.addEventListener('focus', start);
+      card.addEventListener('mouseleave', stop);
+      card.addEventListener('blur', stop);
+    }
+
+    document.querySelectorAll('.project-card').forEach(initCarousel);
+  })();
+</script>
