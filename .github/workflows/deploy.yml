@@ -3,7 +3,7 @@ name: Build and Deploy (GitHub Pages)
 on:
   push:
     branches:
-      - main
+      - main   # 👈 cambia si tu rama es distinta
   workflow_dispatch:
 
 jobs:
@@ -17,17 +17,18 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      # Instala pnpm primero
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 9
+
+      # Ahora Node.js (con cache para pnpm)
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 20
           cache: "pnpm"
-
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v2
-        with:
-          version: 9
-          run_install: false
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
@@ -37,7 +38,6 @@ jobs:
         env:
           NODE_ENV: production
 
-      # Subir el directorio "dist" (output de Astro) como artefacto de Pages
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
