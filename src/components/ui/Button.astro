@@ -9,17 +9,19 @@ interface Props {
   rel?: string;
   type?: 'button' | 'submit' | 'reset';
   disabled?: boolean;
+  download?: boolean;
 }
 
 const {
   variant = 'default',
   size = 'default',
-  class: className = '',
+  class: className,
   href,
   target,
   rel,
   type = 'button',
   disabled = false,
+  download,
   ...rest
 } = Astro.props;
 
@@ -49,6 +51,7 @@ const isLink = !!href;
       target={target}
       rel={rel}
       class={classes}
+      download={download}
       {...rest}
     >
       <slot />
@@ -64,4 +67,5 @@ const isLink = !!href;
     </button>
   )
 }
+
 
