@@ -5,7 +5,8 @@ import Button from '../ui/Button.astro';
 import { Mail, User, Award, BookOpen, Briefcase, GraduationCap } from '../ui/icons';
 import duvanpng from '../../assets/duvan-photo.png';
 
-const cvUrl = `${import.meta.env.BASE_URL}/cv/Duvan-Mesa-CV.pdf`;
+const base = (import.meta.env.BASE_URL || '/').replace(/\/$/, '');
+const cvUrl = `${base}/cv/Duvan-Mesa-CV.pdf`;
 ---
 
 <section id="about" class="py-24 bg-gradient-to-b from-muted/50 to-background">
