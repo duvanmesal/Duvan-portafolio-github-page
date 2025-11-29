@@ -9,7 +9,7 @@ interface Props {
   rel?: string;
   type?: 'button' | 'submit' | 'reset';
   disabled?: boolean;
-  download?: boolean;
+  download?: boolean| string;
 }
 
 const {
@@ -24,6 +24,13 @@ const {
   download,
   ...rest
 } = Astro.props;
+
+const downloadAttr =
+  typeof download === 'string'
+    ? download
+    : download
+    ? ''
+    : undefined;
 
 const variantClasses = {
   default: 'bg-primary text-primary-foreground hover:bg-primary/90',
@@ -51,7 +58,7 @@ const isLink = !!href;
       target={target}
       rel={rel}
       class={classes}
-      download={download ? '' : undefined}
+      download={downloadAttr}
       {...rest}
     >
       <slot />
