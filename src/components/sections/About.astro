@@ -4,6 +4,8 @@ import SectionHeader from '../ui/SectionHeader.astro';
 import Button from '../ui/Button.astro';
 import { Mail, User, Award, BookOpen, Briefcase, GraduationCap } from '../ui/icons';
 import duvanpng from '../../assets/duvan-photo.png';
+
+const cvUrl = `${import.meta.env.BASE_URL}cv/Duvan-Mesa-CV.pdf`;
 ---
 
 <section id="about" class="py-24 bg-gradient-to-b from-muted/50 to-background">
@@ -108,7 +110,7 @@ import duvanpng from '../../assets/duvan-photo.png';
       <Button href="#contact" class="group">
         <Mail className="mr-2 h-4 w-4" /> Contact Me
       </Button>
-      <Button href="#" variant="outline">
+      <Button href={cvUrl} variant="outline">
         <User className="mr-2 h-4 w-4" /> Download CV
       </Button>
     </div>
