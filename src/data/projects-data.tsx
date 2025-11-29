@@ -39,6 +39,34 @@ export const projectsData = [
     featured: false,
   },
   {
+    title: "Serverless URL Shortener",
+    category: "Serverless & Cloud Architecture",
+    description:
+      "Distributed URL shortener built with AWS serverless: independent Lambdas for shorten, redirect and stats, two frontends, full IaC with Terraform and CI/CD per module.",
+    images: [
+      "https://i.imgur.com/hhdt8NV.png",
+      "https://i.imgur.com/8PxWcdI.png",
+      "https://i.imgur.com/1ZPhHHM.png",
+      "https://i.imgur.com/nyLEQVx.png",
+    ],
+    technologies: [
+      "AWS Lambda",
+      "API Gateway",
+      "DynamoDB",
+      "S3",
+      "CloudFront",
+      "Terraform",
+      "GitHub Actions",
+      "Node.js",
+      "TypeScript",
+      "React",
+      "Next.js",
+      "Tailwind CSS"
+    ],
+    github: "https://github.com/duvanmesal/lambda-stats",
+    featured: true
+  },
+  {
     title: "E-commerce Platform",
     category: "Web Development",
     description:
@@ -65,16 +93,6 @@ export const projectsData = [
       "A weather dashboard that displays current and forecasted weather data.",
     images: ["/placeholder.svg?height=400&width=600"],
     technologies: ["JavaScript", "OpenWeather API", "Chart.js"],
-    github: "#",
-    featured: false,
-  },
-  {
-    title: "Fitness Tracker",
-    category: "Mobile App",
-    description:
-      "A fitness tracking application to monitor workouts and progress.",
-    images: ["/placeholder.svg?height=400&width=600"],
-    technologies: ["React Native", "Firebase", "Redux"],
     github: "#",
     featured: false,
   },
