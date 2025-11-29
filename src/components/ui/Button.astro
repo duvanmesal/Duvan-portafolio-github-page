@@ -51,7 +51,7 @@ const isLink = !!href;
       target={target}
       rel={rel}
       class={classes}
-      download={download}
+      download={download ? '' : undefined}
       {...rest}
     >
       <slot />
